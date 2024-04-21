@@ -1,9 +1,6 @@
 import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
-import {
-  ClassSerializerInterceptor,
-  ValidationPipe,
-} from '@nestjs/common';
+import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 import * as env from 'dotenv';
 import { LoggerFactory } from './common/logger/logger.factory';
 import { LoggerInterceptor } from './common/logger/logger.interceptor';

@@ -10,9 +10,9 @@ import { JudgeModule } from './modules/judge/judge.module';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    JudgeModule
+    JudgeModule,
   ],
   controllers: [AppController],
   providers: [],
 })
-export class AppModule { }
+export class AppModule {}

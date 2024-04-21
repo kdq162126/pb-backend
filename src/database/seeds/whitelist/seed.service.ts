@@ -14,7 +14,7 @@ export class WhitelistSeedService {
     private repo: Repository<WhitelistEntity>,
     private readonly logger: Logger,
   ) {
-    this.entityName = repo.metadata.name
+    this.entityName = repo.metadata.name;
   }
 
   async seed(): Promise<void> {
@@ -24,23 +24,23 @@ export class WhitelistSeedService {
       fs.readFileSync(__dirname + '/data.json', 'utf-8'),
     );
     this.objects = jsonData;
-    const seeding = this.objects.map(
-      async (object) => {
-        const record = await this.repo.findOneBy({
-          code: object.code,
-          platform: object.platform
-        });
-        if (record) {
-          const recordToUpdate = Object.assign(record, object);
-          await this.repo.save(recordToUpdate);
-          this.logger.debug(`Update record: ${object.code} - ${object.platform}`);
-        } else {
-          const newRecord = this.repo.create(object);
-          await this.repo.save(newRecord);
-          this.logger.debug(`Create new record: ${object.code} - ${object.platform}`);
-        }
-      },
-    );
+    const seeding = this.objects.map(async (object) => {
+      const record = await this.repo.findOneBy({
+        code: object.code,
+        platform: object.platform,
+      });
+      if (record) {
+        const recordToUpdate = Object.assign(record, object);
+        await this.repo.save(recordToUpdate);
+        this.logger.debug(`Update record: ${object.code} - ${object.platform}`);
+      } else {
+        const newRecord = this.repo.create(object);
+        await this.repo.save(newRecord);
+        this.logger.debug(
+          `Create new record: ${object.code} - ${object.platform}`,
+        );
+      }
+    });
     await Promise.all(seeding);
 
     this.logger.debug(`... Finish seeding for ${this.entityName} ...\n`);

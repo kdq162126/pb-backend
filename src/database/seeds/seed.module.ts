@@ -5,11 +5,7 @@ import { WhitelistSeedModule } from './whitelist/seed.module';
 import { BlacklistSeedModule } from './blacklist/seed.module';
 
 @Module({
-  imports: [
-    DatabaseModule,
-    WhitelistSeedModule,
-    BlacklistSeedModule
-  ],
+  imports: [DatabaseModule, WhitelistSeedModule, BlacklistSeedModule],
   providers: [SeedService, Logger],
 })
-export class SeedModule { }
+export class SeedModule {}

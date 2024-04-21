@@ -8,4 +8,4 @@ import { WhitelistSeedService } from './seed.service';
   providers: [WhitelistSeedService, Logger],
   exports: [WhitelistSeedService],
 })
-export class WhitelistSeedModule { }
+export class WhitelistSeedModule {}
