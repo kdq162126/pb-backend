@@ -1,2 +1,2 @@
-export { UserEntity } from './user.entity';
-
+export { BlacklistEntity } from './blacklist.entity';
+export { WhitelistEntity } from './whitelist.entity';
