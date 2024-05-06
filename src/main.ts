@@ -4,10 +4,13 @@ import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 import * as env from 'dotenv';
 import { LoggerFactory } from './common/logger/logger.factory';
 import { LoggerInterceptor } from './common/logger/logger.interceptor';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import { join } from 'path';
+
 env.config();
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     logger: LoggerFactory('SERVER'),
   });
 
@@ -19,6 +22,15 @@ async function bootstrap() {
     req.headers.origin = req.headers.origin || req.headers.host;
     next();
   });
+  
+  app.set('views', join(__dirname, 'views'));
+  app.engine('html', require('ejs').renderFile);
+  app.set('view engine', 'html');
+  app.useStaticAssets(join('src/assets'), {
+    index: false,
+    prefix: '/assets/',
+}); 
+
 
   app.enableCors({
     origin: '*',
