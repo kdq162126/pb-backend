@@ -6,6 +6,8 @@ import { LoggerFactory } from './common/logger/logger.factory';
 import { LoggerInterceptor } from './common/logger/logger.interceptor';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
+import {Session} from 'express-session';
+import * as session from 'express-session';
 
 env.config();
 
@@ -22,6 +24,12 @@ async function bootstrap() {
     req.headers.origin = req.headers.origin || req.headers.host;
     next();
   });
+
+  app.use(session({
+    secret: '0610',
+    resave: false,
+    saveUninitialized: false,
+  }))
   
   app.set('views', join(__dirname, 'views'));
   app.engine('html', require('ejs').renderFile);
